@@ -3,8 +3,8 @@
 # Docker configuration backend
 providers:
   docker:
-      defaultRule: "Host(`{{ trimPrefix `/` .Name }}.docker.localhost`)"
+    defaultRule: "Host(`{{ trimPrefix `/` .Name }}.docker.localhost`)"
 
-      # API and dashboard configuration
-      api:
-        insecure: true
+# API and dashboard configuration
+api:
+  insecure: true
