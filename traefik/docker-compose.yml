@@ -15,3 +15,4 @@ networks:
   public:
     external: true
   ingress:
+    external: true
