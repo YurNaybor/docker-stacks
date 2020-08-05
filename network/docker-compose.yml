@@ -1,0 +1,12 @@
+---
+version: '2.4'
+networks:
+  macvlan_net:
+    driver: macvlan
+    driver_opts:
+      parent: lan0
+    ipam:
+      config:
+        - subnet: 192.168.10.0/24
+          gateway: 192.168.10.1
+          ip_range: 192.168.10.208/28

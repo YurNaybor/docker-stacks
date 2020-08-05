@@ -5,7 +5,7 @@ services:
     container_name: pihole
     image: pihole/pihole:latest
     networks:
-      pihole_network:
+      macvlan_net:
         ipv4_address: 192.168.10.209
     dns:
       - 127.0.0.1
@@ -17,12 +17,5 @@ services:
       ServerIP: 192.168.10.209
     restart: unless-stopped
 networks:
-  pihole_network:
-    driver: macvlan
-    driver_opts:
-      parent: lan0
-    ipam:
-      config:
-        - subnet: 192.168.10.0/24
-          gateway: 192.168.10.1
-          ip_range: 192.168.10.208/28
+  macvlan_net:
+    external: true
