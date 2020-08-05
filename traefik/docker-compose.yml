@@ -6,18 +6,11 @@ services:
     image: traefik:v2.0
     networks:
       public:
-        ipv4_address: 192.168.10.225
+        ipv4_address: 192.168.10.210
     volumes:
       - './traefik.yml:/etc/traefik/traefik.yml'
       - '/var/run/docker.sock:/var/run/docker.sock'
     restart: unless-stopped
 networks:
   public:
-    driver: macvlan
-    driver_opts:
-      parent: lan0
-    ipam:
-      config:
-        - subnet: 192.168.10.0/24
-          gateway: 192.168.10.1
-          ip_range: 192.168.10.224/28
+    external: true
