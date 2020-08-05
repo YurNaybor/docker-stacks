@@ -2,7 +2,7 @@
 version: '2.4'
 services:
   whoami:
-    image: containous/whoami:v1.3.0
+    image: containous/whoami:latest
     command: --port=8082
     networks:
       ingress:
