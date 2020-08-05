@@ -1,12 +1,12 @@
 ---
-version: '2'
+version: '2.4'
 services:
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
     networks:
       pihole_network:
-        ipv4_address: 192.168.10.201
+        ipv4_address: 192.168.10.209
     dns:
       - 127.0.0.1
       - 1.1.1.1
@@ -14,15 +14,15 @@ services:
       TZ: "Europe/Berlin"
       DNS1: "1.1.1.1"
       DNS2: "1.0.0.1"
-      ServerIP: 192.168.10.201
+      ServerIP: 192.168.10.209
     restart: unless-stopped
 networks:
   pihole_network:
     driver: macvlan
     driver_opts:
-      parent: enx001e06368302
+      parent: lan0
     ipam:
       config:
         - subnet: 192.168.10.0/24
           gateway: 192.168.10.1
-          ip_range: 192.168.10.201/32
+          ip_range: 192.168.10.208/28
