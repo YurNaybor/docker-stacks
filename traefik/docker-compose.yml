@@ -1,12 +1,12 @@
 ---
 version: '2.4'
 services:
-  pihole:
-    container_name: traefik
+  traefik:
     image: traefik:v2.0
     networks:
       public:
         ipv4_address: 192.168.10.210
+      ingress:
     volumes:
       - './traefik.yml:/etc/traefik/traefik.yml'
       - '/var/run/docker.sock:/var/run/docker.sock'
@@ -14,3 +14,4 @@ services:
 networks:
   public:
     external: true
+  ingress:

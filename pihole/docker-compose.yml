@@ -2,7 +2,6 @@
 version: '2.4'
 services:
   pihole:
-    container_name: pihole
     image: pihole/pihole:latest
     networks:
       public:
