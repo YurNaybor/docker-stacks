@@ -3,13 +3,19 @@ version: '2.4'
 services:
   traefik:
     image: traefik:v2.0
+    command:
+      - --entrypoints.web.address=:80
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.defaultrule="Host(`{{ trimPrefix `/` .Name }}.docker.hc2-01`)"
+      - --api.insecure
     networks:
       public:
         ipv4_address: 192.168.10.210
       ingress:
     volumes:
-      - './traefik.yml:/etc/traefik/traefik.yml'
       - '/var/run/docker.sock:/var/run/docker.sock'
+      #- './traefik.yml:/etc/traefik/traefik.yml'
     restart: unless-stopped
 networks:
   public:

@@ -1,0 +1,29 @@
+---
+version: '2.4'
+services:
+  nextcloud:
+    image: linuxserver/nextcloud
+    environment:
+      TZ: Europe/Berlin
+    networks:
+      ingress:
+      backend:
+    restart: unless-stopped
+    depends_on:
+      - db
+    labels:
+      traefik.enable: true
+      traefik.http.services.nextcloud.loadbalancer.server.port: 443
+      traefik.http.services.nextcloud.loadbalancer.server.scheme: https
+  # Note: connection to the DB is not handled in the ls nc image, rather than in the nc setup
+  db:
+    image: linuxserver/mariadb
+    networks:
+      backend:
+    environment:
+      TZ: Europe/Berlin
+    restart: unless-stopped
+networks:
+  ingress:
+    external: true
+  backend:

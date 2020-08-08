@@ -8,8 +8,8 @@ services:
       ingress:
     restart: unless-stopped
     labels:
-      - traefik.http.routers.whoami.rule=Host(`example.com`)
-      - traefik.http.services.whoami.loadbalancer.server.port=8082
+      traefik.enable: true
+      traefik.http.services.whoami.loadbalancer.server.port: 8082
 networks:
   ingress:
     external: true

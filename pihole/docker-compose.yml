@@ -14,6 +14,8 @@ services:
       DNS1: "1.1.1.1"
       DNS2: "1.0.0.1"
       ServerIP: 192.168.10.209
+    volumes:
+      - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
     restart: unless-stopped
 networks:
   public:
