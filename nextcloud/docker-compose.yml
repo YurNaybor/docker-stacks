@@ -13,6 +13,7 @@ services:
       - db
     labels:
       traefik.enable: true
+      traefik.http.routers.nextcloud.rule: Host(`nextcloud.docker.hc2-01`)
       traefik.http.services.nextcloud.loadbalancer.server.port: 443
       traefik.http.services.nextcloud.loadbalancer.server.scheme: https
   # Note: connection to the DB is not handled in the ls nc image, rather than in the nc setup
