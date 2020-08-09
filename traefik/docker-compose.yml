@@ -11,6 +11,7 @@ services:
       - --providers.docker.exposedbydefault=false
       - --api.insecure=true
       - --log.level=ERROR
+      - --accesslog=true
     networks:
       public:
         ipv4_address: 192.168.10.210
