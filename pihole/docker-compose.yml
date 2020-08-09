@@ -2,7 +2,7 @@
 version: '2.4'
 services:
   pihole:
-    image: pihole/pihole:latest
+    image: pihole/pihole:${PIHOLE_VERSION:-latest}
     networks:
       public:
     dns:

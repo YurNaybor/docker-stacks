@@ -2,14 +2,14 @@
 version: '2.4'
 services:
   whoami:
-    image: containous/whoami:${WHOAMI_VERSION:-latest}
+    image: containous/whoami:latest
     command: --port=8082
     networks:
       ingress:
     restart: unless-stopped
     labels:
       traefik.enable: true
-      traefik.http.routers.whoami.rule: Host(`whoami.docker.localhost`)
+      traefik.http.routers.whoami.rule: Host(`whoami.docker.hc2-01`)
       traefik.http.services.whoami.loadbalancer.server.port: 8082
 networks:
   ingress:
