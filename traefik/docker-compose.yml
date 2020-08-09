@@ -10,6 +10,7 @@ services:
       - --providers.docker=true
       - --providers.docker.network=ingress
       - --providers.docker.exposedbydefault=false
+      - --serverstransport.insecureskipverify=true
       - --api.insecure=true
       - --log.level=ERROR
       - --accesslog=true
