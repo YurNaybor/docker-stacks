@@ -6,6 +6,7 @@ services:
     command:
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
       - --providers.docker=true
       - --providers.docker.network=ingress
       - --providers.docker.exposedbydefault=false
