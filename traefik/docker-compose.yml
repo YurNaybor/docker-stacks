@@ -6,8 +6,6 @@ services:
     command:
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
-      - --entrypoints.web.http.redirections.entrypoint.to=websecure
-      - --entrypoints.web.http.redirections.entrypoint.scheme=https
       - --providers.docker=true
       - --providers.docker.network=ingress
       - --providers.docker.exposedbydefault=false
@@ -23,10 +21,6 @@ services:
       - "/etc/localtime:/etc/localtime:ro"
       #- './traefik.yml:/etc/traefik/traefik.yml'
     restart: unless-stopped
-    labels:
-      # needs to be set for global http -> https redirect, if exposedbydefault is false
-      # see https://stackoverflow.com/questions/58666711/traefik-v2-404-while-routing-http-traffic-globally-to-https
-      traefik.enable: true
 networks:
   public:
     external: true

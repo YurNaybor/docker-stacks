@@ -13,6 +13,7 @@ services:
       - db
     labels:
       traefik.enable: true
+      traefik.http.routers.nextcloud.entrypoins: websecure
       traefik.http.routers.nextcloud.rule: Host(`nextcloud.docker.hc2-01`)
       traefik.http.services.nextcloud.loadbalancer.server.port: 443
       traefik.http.services.nextcloud.loadbalancer.server.scheme: https
