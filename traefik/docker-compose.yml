@@ -7,7 +7,7 @@ services:
       - --entrypoints.web.address=:80
       - --entrypoints.web.http.redirections.entrypoint.to=websecure
       - --entrypoints.web.http.redirections.entrypoint.scheme=https
-    --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.address=:443
       - --providers.docker=true
       - --providers.docker.network=ingress
       - --providers.docker.exposedbydefault=false
