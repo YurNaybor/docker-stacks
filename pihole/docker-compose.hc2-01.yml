@@ -1,0 +1,9 @@
+---
+version: '2.4'
+services:
+  pihole:
+    networks:
+      public:
+        ipv4_address: 192.168.10.209
+    environment:
+      ServerIP: 192.168.10.209

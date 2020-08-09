@@ -1,0 +1,6 @@
+---
+version: '2.4'
+services:
+  nextcloud:
+    labels:
+      traefik.http.routers.nextcloud.rule: Host(`nextcloud.docker.hc2-01`)

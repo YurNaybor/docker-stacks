@@ -16,7 +16,6 @@ services:
       - --accesslog=true
     networks:
       public:
-        ipv4_address: 192.168.10.210
       ingress:
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
@@ -26,6 +25,4 @@ services:
     restart: unless-stopped
 networks:
   public:
-    external: true
   ingress:
-    external: true
