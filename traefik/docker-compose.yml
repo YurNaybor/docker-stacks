@@ -5,10 +5,13 @@ services:
     image: traefik:v2.0
     command:
       - --entrypoints.web.address=:80
-      - --providers.docker
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+    --entrypoints.websecure.address=:443
+      - --providers.docker=true
       - --providers.docker.network=ingress
       - --providers.docker.exposedbydefault=false
-      - --api.insecure
+      - --api.insecure=true
       - --log.level=ERROR
     networks:
       public:
