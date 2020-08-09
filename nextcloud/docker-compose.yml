@@ -14,12 +14,19 @@ services:
     volumes:
       - nextcloud_config:/config
       - nextcloud_data:/data
+    # sts and redirect infos from nc doc and https://github.com/nextcloud/docker/issues/1061
     labels:
       traefik.enable: true
       traefik.http.routers.nextcloud.entrypoints: websecure
       traefik.http.routers.nextcloud.rule: Host(`nextcloud.docker.hc2-01`)
       traefik.http.services.nextcloud.loadbalancer.server.port: 443
       traefik.http.services.nextcloud.loadbalancer.server.scheme: https
+      traefik.http.routers.nextcloud.middlewares: nextcloud,nextcloud_redirect
+      traefik.http.middlewares.nextcloud.headers.stsSeconds: 155520011
+      traefik.http.middlewares.nextcloud.headers.stsIncludeSubdomains: true
+      traefik.http.middlewares.nextcloud.headers.stsPreload: true
+      traefik.http.middlewares.nextcloud_redirect.redirectregex.regex: /.well-known/(card|cal)dav
+      traefik.http.middlewares.nextcloud_redirect.redirectregex.replacement: /remote.php/dav/
   # Note: connection to the DB is not handled in the ls nc image, rather than in the nc setup
   db:
     image: linuxserver/mariadb
