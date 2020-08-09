@@ -11,6 +11,9 @@ services:
     restart: unless-stopped
     depends_on:
       - db
+    volumes:
+      - nextcloud_config:/config
+      - nextcloud_data:/data
     labels:
       traefik.enable: true
       traefik.http.routers.nextcloud.entrypoints: websecure
@@ -24,7 +27,18 @@ services:
       backend:
     environment:
       TZ: Europe/Berlin
+      MYSQL_ROOT_PASSWORD: dummy
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: nextcloud
+    volumes:
+      - db_data:/config
     restart: unless-stopped
+  # TODO: container for backup (borg/matic)
+volumes:
+  nextcloud_config:
+  nextcloud_data:
+  db_data:
 networks:
   ingress:
     external: true
