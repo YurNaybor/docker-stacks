@@ -4,3 +4,6 @@ services:
   nextcloud:
     labels:
       traefik.http.routers.nextcloud.rule: Host(`nextcloud.docker.hc2-01`)
+networks:
+  public:
+    external: true

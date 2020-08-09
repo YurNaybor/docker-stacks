@@ -5,3 +5,6 @@ services:
     networks:
       public:
         ipv4_address: 192.168.10.210
+networks:
+  public:
+    external: true
