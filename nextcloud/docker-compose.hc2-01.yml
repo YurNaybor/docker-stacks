@@ -5,6 +5,8 @@ services:
     labels:
       traefik.http.routers.nextcloud.rule: Host(`nextcloud.docker.hc2-01`)
   backup:
+    build:
+      context: backup/base
     environment:
       BORG_PASSPHRASE: go4it
     volumes:
