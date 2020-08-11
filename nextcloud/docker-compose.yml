@@ -42,6 +42,19 @@ services:
       - db_data:/config
     restart: unless-stopped
   # TODO: container for backup (borg/matic)
+  # Backup process:
+  # 1. enabled maintenance mode (via config.php, occ command not available in sidecard?)
+  # 3. backup filesystem and database
+  backup:
+    image: b3vis/borgmatic:${BORGMATIC_VERSION:-latest}
+    environment:
+      TZ: Europe/Berlin
+    networks:
+      backend:
+    volumes:
+      - nextcloud_config:/mnt/src/config:ro
+      - nextcloud_data:/mnt/src/data:ro
+
 volumes:
   nextcloud_config:
   nextcloud_data:

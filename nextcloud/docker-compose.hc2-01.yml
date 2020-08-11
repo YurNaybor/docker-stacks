@@ -4,3 +4,13 @@ services:
   nextcloud:
     labels:
       traefik.http.routers.nextcloud.rule: Host(`nextcloud.docker.hc2-01`)
+  backup:
+    environment:
+      BORG_PASSPHRASE: go4it
+    volumes:
+      - /srv/dev-disk-by-label-backup/backup-nextcloud-local:/mnt/borg-repository
+      - /root/.config/borg:/root/.config/borg
+      - /root/.cache/borg:/root/.cache/borg
+      - /root/.borgmatic:/root/.borgmatic
+      - ./borgmatic.d:/etc/borgmatic.d
+      # TODO /etc/borgmatic.d/, /root/.ssh, /root/.borgmatic(?)
