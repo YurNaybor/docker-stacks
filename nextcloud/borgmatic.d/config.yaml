@@ -310,7 +310,7 @@ retention:
 # forget to set secure permissions on this configuration file (chmod
 # 0600) as well as on any script called from a hook (chmod 0700) to
 # prevent potential shell injection or privilege escalation.
-# hooks:
+hooks:
     # List of one or more shell commands or scripts to execute
     # before creating a backup, run once per configuration file.
     # before_backup:
@@ -422,30 +422,30 @@ retention:
     # mysqldump/mysql commands (from either MySQL or MariaDB). See
     # https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html or
     # https://mariadb.com/kb/en/library/mysqldump/ for details.
-    # mysql_databases:
+    mysql_databases:
         # Database name (required if using this hook). Or
         # "all" to dump all databases on the host. Note
         # that using this database hook implicitly enables
         # both read_special and one_file_system (see
         # above) to support dump and restore streaming.
-        # - name: users
+        - name: nextcloud
 
           # Database hostname to connect to. Defaults to
           # connecting via local Unix socket.
-          # hostname: database.example.org
+          hostname: db
 
           # Port to connect to. Defaults to 3306.
           # port: 3307
 
           # Username with which to connect to the database.
           # Defaults to the username of the current user.
-          # username: dbuser
+          username: nextcloud
 
           # Password with which to connect to the database.
           # Omitting a password will only work if MySQL is
           # configured to trust the configured username
           # without a password.
-          # password: trustsome1
+          password: nextcloud
 
           # Additional mysqldump options to pass directly to
           # the dump command, without performing any
