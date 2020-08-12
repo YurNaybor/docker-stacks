@@ -46,7 +46,10 @@ services:
   # 1. enabled maintenance mode (via config.php, occ command not available in sidecard?)
   # 3. backup filesystem and database
   backup:
-    image: b3vis/borgmatic:${BORGMATIC_VERSION:-latest}
+    # Build it for arm
+    #image: b3vis/borgmatic:${BORGMATIC_VERSION:-latest}
+    build:
+      context: backup/base
     environment:
       TZ: Europe/Berlin
     networks:
