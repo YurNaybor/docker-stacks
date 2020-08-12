@@ -118,7 +118,7 @@ location:
 # https://borgbackup.readthedocs.io/en/stable/usage/create.html and
 # https://borgbackup.readthedocs.io/en/stable/usage/general.html for
 # details.
-# storage:
+storage:
     # The standard output of this command is used to unlock the
     # encryption key. Only use on repositories that were
     # initialized with passcommand/repokey encryption. Note that
@@ -199,7 +199,7 @@ location:
 
     # Bypass Borg error about a repository that has been moved.
     # Defaults to false.
-    # relocated_repo_access_is_ok: true
+    relocated_repo_access_is_ok: true
 
     # Bypass Borg error about a previously unknown unencrypted
     # repository. Defaults to false.
