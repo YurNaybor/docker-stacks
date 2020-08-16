@@ -1,0 +1,64 @@
+---
+- name: Create nextcloud docker directory
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ docker_data_dir }}/nextcloud/"
+  become: yes
+
+- name: Create nextcloud backend network
+  docker_network:
+    name: nextcloud_backend
+  become: yes
+
+- name: Run nextcloud database container
+  docker_container:
+    name: nextcloud_db
+    image: "linuxserver/mariadb:{{ nextcloud_mariadb_version | default('latest') }}"
+    state: "{{ nextcloud_state | default('started') }}"
+    restart_policy: unless-stopped
+    env:
+      TZ: Europe/Berlin
+      MYSQL_ROOT_PASSWORD: dummy
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: nextcloud
+    networks:
+      - name: nextcloud_backend
+        aliases:
+          - db
+    networks_cli_compatible: yes
+    volumes:
+      - "nextcloud_db_data:/config"
+  become: yes
+
+- name: Run nextcloud container
+  docker_container:
+    name: nextcloud
+    image: "linuxserver/nextcloud:{{ nextcloud_version | default('latest') }}"
+    state: "{{ nextcloud_state | default('started') }}"
+    restart_policy: unless-stopped
+    env:
+      TZ: Europe/Berlin
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.nextcloud.entrypoints: "websecure"
+      #traefik.http.routers.nextcloud.rule: Host(`nextcloud.docker.localhost`)
+      traefik.http.routers.nextcloud.rule: "Host(`nextcloud.docker.hc2-01`)"
+      traefik.http.services.nextcloud.loadbalancer.server.port: "443"
+      traefik.http.services.nextcloud.loadbalancer.server.scheme: "https"
+      traefik.http.routers.nextcloud.middlewares: "nextcloud,nextcloud_redirect"
+      traefik.http.middlewares.nextcloud.headers.stsSeconds: "155520011"
+      traefik.http.middlewares.nextcloud.headers.stsIncludeSubdomains: "true"
+      traefik.http.middlewares.nextcloud.headers.stsPreload: "true"
+      traefik.http.middlewares.nextcloud_redirect.redirectregex.regex: "/.well-known/(card|cal)dav"
+      traefik.http.middlewares.nextcloud_redirect.redirectregex.replacement: "/remote.php/dav/"
+    networks:
+      - name: nextcloud_backend
+      - name: ingress
+    networks_cli_compatible: yes
+    volumes:
+      - "nextcloud_config:/config"
+      - "nextcloud_data:/data"
+  become: yes

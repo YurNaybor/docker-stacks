@@ -33,3 +33,5 @@
     - include: pihole.yml
 
     - include: traefik.yml
+
+    - include: nextcloud.yml
