@@ -1,7 +1,5 @@
 ---
 - hosts: all
-  vars:
-    docker_data_dir: /srv/dev-disk-by-label-dockerdata
 
   pre_tasks:
     - name: Install docker python binding
@@ -12,6 +10,12 @@
       check_mode: no
 
   tasks:
+    - name: Create top level docker data directory
+      file:
+        path: "{{ docker_data_dir }}"
+        state: directory
+      become: yes
+
     - name: Create public network
       docker_network:
         name: public

@@ -1,0 +1,9 @@
+ansible_host: hc2-01.local
+ansible_user: benjamin
+docker_data_dir: /srv/dev-disk-by-label-dockerdata
+
+# nextcloud
+nextclout_traefik_router_rule: "Host(`nextcloud.docker.hc2-01`)"
+nextcloud_backup_borgmatic_build: true
+nextcloud_backup_borg_passphrase: go4it
+nextcloud_backup_target: /srv/dev-disk-by-label-backup/backup-nextcloud-local
