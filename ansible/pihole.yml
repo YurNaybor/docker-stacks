@@ -1,0 +1,36 @@
+---
+- name: Create pihole docker directory
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ docker_data_dir }}/pihole/"
+  become: yes
+
+- name: Place dnsmasq config
+  copy:
+    src: "pihole/etc-dnsmasq.d"
+    dest: "{{ docker_data_dir }}/pihole/"
+  become: yes
+
+- name: Run pihole container
+  docker_container:
+    name: pihole
+    image: "pihole/pihole:{{ pihole_version | default('latest') }}"
+    state: "{{ pihole_state | default('started') }}"
+    restart_policy: unless-stopped
+    env:
+      TZ: "Europe/Berlin"
+      ServerIP: 192.168.10.209
+      DNS1: "1.1.1.1"
+      DNS2: "1.0.0.1"
+    dns_servers:
+      - 127.0.0.1
+      - 1.1.1.1
+    networks:
+      - name: public
+        ipv4_address: 192.168.10.209
+    networks_cli_compatible: yes
+    volumes:
+      - "{{ docker_data_dir }}/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/"
+  become: yes

@@ -1,0 +1,43 @@
+---
+- name: Create traefik docker directory
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ docker_data_dir }}/traefik/"
+  become: yes
+
+- name: Place traefik.yml
+  copy:
+    src: "traefik/traefik.yml"
+    dest: "{{ docker_data_dir }}/traefik/traefik.yml"
+  become: yes
+
+- name: Run traefik container
+  docker_container:
+    name: traefik
+    image: "traefik:{{ traefik_version | default('v2.2') }}"
+    state: "{{ traefik_state | default('started') }}"
+    restart_policy: unless-stopped
+    command:
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
+      - --providers.docker=true
+      - --providers.docker.network=ingress
+      - --providers.docker.exposedbydefault=false
+      - --serverstransport.insecureskipverify=true
+      - --api.insecure=true
+      - --log.level=ERROR
+      - --accesslog=true
+    networks:
+      - name: public
+        ipv4_address: 192.168.10.210
+      - name: ingress
+    networks_cli_compatible: yes
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+      #- "{{ docker_data_dir }}/traefik/traefik.yml:/etc/traefik.yml"
+  become: yes
