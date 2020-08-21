@@ -1,6 +1,13 @@
 docker_data_dir: /opt/docker
 
+# pihole
+pihole_state: stopped
+
+# traefik
+traefik_state: stopped
+
 # nextcloud
+nextcloud_state: stopped
 nextcloud_version: latest
 nextcloud_mariadb_version: latest
 nextcloud_timezone: Europe/Berlin
