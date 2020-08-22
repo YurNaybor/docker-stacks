@@ -21,7 +21,7 @@
     restart_policy: unless-stopped
     env:
       TZ: "Europe/Berlin"
-      ServerIP: 192.168.10.209
+      ServerIP: "{{ pihole_public_ip }}"
       DNS1: "1.1.1.1"
       DNS2: "1.0.0.1"
     dns_servers:
@@ -29,7 +29,7 @@
       - 1.1.1.1
     networks:
       - name: public
-        ipv4_address: 192.168.10.209
+        ipv4_address: "{{ pihole_public_ip }}"
     networks_cli_compatible: yes
     volumes:
       - "{{ docker_data_dir }}/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/"

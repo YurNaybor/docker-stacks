@@ -32,7 +32,7 @@
       - --accesslog=true
     networks:
       - name: public
-        ipv4_address: 192.168.10.210
+        ipv4_address: "{{ traefik_public_ip }}"
       - name: ingress
     networks_cli_compatible: yes
     volumes:

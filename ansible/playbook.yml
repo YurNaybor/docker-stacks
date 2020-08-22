@@ -24,9 +24,9 @@
           parent: lan0
         # see http://jodies.de/ipcalc?host=192.168.10.1&mask1=24&mask2=28
         ipam_config:
-          - subnet: 192.168.10.0/24
-            gateway: 192.168.10.1
-            iprange: 192.168.10.208/28
+          - subnet: 192.168.178.0/24
+            gateway: 192.168.178.1
+            iprange: 192.168.178.208/28
       become: yes
 
     - name: Create ingress network

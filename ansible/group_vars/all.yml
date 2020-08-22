@@ -1,7 +1,7 @@
 docker_data_dir: /opt/docker
 
 # pihole
-pihole_state: stopped
+pihole_state: started
 
 # traefik
 traefik_state: stopped

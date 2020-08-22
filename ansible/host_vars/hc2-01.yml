@@ -2,6 +2,16 @@ ansible_host: hc2-01.local
 ansible_user: benjamin
 docker_data_dir: /srv/dev-disk-by-label-dockerdata
 
+public_net_subnet: "192.168.178.0/24"
+public_net_gateway: "192.168.178.1"
+public_net_range: "192.168.178.208/28"
+
+# pihole
+pihole_public_ip: "192.168.178.209"
+
+# traefik
+traefik_public_ip: "192.168.178.210"
+
 # nextcloud
 nextclout_traefik_router_rule: "Host(`nextcloud.docker.hc2-01`)"
 nextcloud_backup_borgmatic_build: true
